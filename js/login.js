@@ -32,3 +32,38 @@ function login(e) {
 }
 
 loginBtn.addEventListener("click", login);
+
+// const app = {
+//   data: {
+//     url: `https://vue3-course-api.hexschool.io`,
+//     username: usernameInput.value,
+//     password: passwordInput.value,
+//     user: {
+//       username,
+//       password,
+//     },
+//   },
+//   login() {
+//     // e.preventDefault();
+//     axios
+//       .post(`${this.data.url}/admin/signin`, this.data.user)
+//       .then((res) => {
+//         if (res.data.success) {
+//           // const token = res.data.token;
+//           // const expired = res.data.expired;
+//           const { token, expired } = res.data;
+//           document.cookie = `hexToken=${token};expires=${new Date(
+//             expired
+//           )}; path=/`;
+//           window.location = "products.html";
+//         }
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   },
+//   created() {
+//     loginBtn.addEventListener("click", this.login());
+//   },
+// };
+// app.created();

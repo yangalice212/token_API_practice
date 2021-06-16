@@ -5,7 +5,7 @@ const app = {
     productData: [],
   },
   getData() {
-    const url = `${this.data.apiUrl}/api/${this.data.apiPath}}/products`;
+    const url = `${this.data.apiUrl}/api/${this.data.apiPath}/admin/products`;
     axios
       .get(url)
       .then((res) => {
@@ -25,14 +25,14 @@ const app = {
     this.data.productData.forEach((item) => {
       str += `
       <tr>
-        <td>${item.name}</td>
-        <td>NT$ ${item.originPrice}</td>
+        <td>${item.category}</td>
+        <td>NT$ ${item.origin_price}</td>
         <td>NT$ ${item.price}</td>
         <td>
           <input type="checkbox" id="${item.id}" ${
-        item.isEnabled ? "checked" : ""
+        item.is_enabled ? "checked" : ""
       } data-id="${item.id}" data-action="status">
-          <label for="${item.id}">${item.isEnabled ? "啟用" : "未啟用"}</label>
+          <label for="${item.id}">${item.is_enabled ? "啟用" : "未啟用"}</label>
         </td>
         <td>
           <a href="#" class="text-danger">
@@ -49,16 +49,18 @@ const app = {
 
     const delBtn = document.querySelectorAll("#delete");
     delBtn.forEach((item) => {
-      item.addEventListener("click", this.delProductItem);
+      item.addEventListener("click", this.delProductItem.bind(this));
     });
   },
   delProductItem(e) {
-    const id = e.target.dataset;
-    const url = `${this.data.apiUrl}/api/${this.data.apiPath}/{${id}`;
+    const { id } = e.target.dataset;
+    const url = `${this.data.apiUrl}/api/${this.data.apiPath}/admin/product/${id}`;
     axios
       .delete(url)
       .then((res) => {
-        this.getData();
+        if (res.data.success) {
+          this.getData();
+        }
       })
       .catch((err) => {
         console.log(err);
